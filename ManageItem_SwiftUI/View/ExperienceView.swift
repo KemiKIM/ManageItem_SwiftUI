@@ -1,13 +1,13 @@
 //
-//  AddView.swift
+//  ExperienceView.swift
 //  ManageItem_SwiftUI
 //
-//  Created by 김성호 on 4/24/25.
+//  Created by 김성호 on 4/27/25.
 //
 
 import SwiftUI
 
-struct AddView: View {
+struct ExperienceView: View {
     
     
     

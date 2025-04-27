@@ -5,15 +5,16 @@
 //  Created by 김성호 on 4/22/25.
 //
 
-import Foundation
+import SwiftUI
 
 class ViewRouter: ObservableObject {
-    enum Screen {
-        case auth
-        case main
-        case add
-        case setting
-    }
+    @Published var path = NavigationPath()
 
-    @Published var currentScreen: Screen = .auth
+      func reset() {
+          path.removeLast(path.count)
+      }
+
+      func navigate(to screen: Screen) {
+          path.append(screen)
+      }
 }

@@ -8,29 +8,22 @@
 import SwiftUI
 
 struct AuthView: View {
-    var onSuccess: () -> Void     // 로그인 성공 후 실행할 클로저
-
-    
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var rdViewModel: RDViewModel
     
-    
     @State var inputText = ""
-    
-    
-    
-    
+
     @State var showAlert = false
     @State var alertMessage = ""
     
     
     
+    // MARK: [ Body ]
     
     
     var body: some View {
         
-        NavigationStack {
-            // >> ZStack : Background
+            // MARK:  >> [ ZStack ]
             ZStack {
                 Color(UIColor.systemGray2)
                     .ignoresSafeArea() // SafeArea위로
@@ -38,10 +31,11 @@ struct AuthView: View {
                         UIApplication.shared.downKeyboard()
                     }
                 
-                // >> VStack
+                // MARK: > [ VStack ]
                 VStack {
                  
-                    // TextField
+                    
+                    // VStack: TextField
                     TextField("숫자를 입력하세요", text: $inputText)
                         .keyboardType(.numberPad) // 숫자 키보드 설정
                         .padding(.leading, 10)
@@ -49,95 +43,103 @@ struct AuthView: View {
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
                         .padding()
-//                        .toolbar {
-//                            ToolbarItemGroup(placement: .keyboard) { // 키보드 바로 위 툴바
-//                                Spacer()
-//                                Button("완료") {
-//                                    UIApplication.shared.downKeyboard()
-//                                }
-//                            }
-//                        }
-                        .onChange(of: inputText) { newValue in
-                            // 1. 숫자만 허용
-                            let filtered = newValue.filter { $0.isNumber }
-
-                            // 2. 최대 11자리 제한
-                            if filtered.count > 11 {
-                                inputText = String(filtered.prefix(11))
-                            } else {
-                                inputText = filtered
-                            }
-
-                            // 3. 11자리가 되었을 때 함수 실행
-                            if inputText.count == 11 {
-                                onNumberEnteredFully(number: inputText)
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) { // 키보드 바로 위 툴바
+                                Spacer()
+                                Button("완료") {
+                                    UIApplication.shared.downKeyboard()
+                                }
                             }
                         }
+                        .onChange(of: inputText) { _, value in
+                            self.checkNumberCondition(value: value)
+                        }
+                    // End: VStack: TextField
                     
                     
-                    // Button
+                    
+                    
+                    // VStack: Btn
                     Button("Go to Main View") {
                         UserDefaults.standard.set(false, forKey: "Auth")
-                        viewRouter.currentScreen = .main
+                        viewRouter.navigate(to: .main)
                     }
                     .foregroundStyle(Color(UIColor.black))
                     .background(Color(UIColor.systemPink))
+                    // End: VStack: Btn
                     
                     
                     
-                } // << VStack
+                } // MARK: < [ VStack ]
                 .padding()
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
-                }
+                .alert(
+                    "알림",
+                    isPresented: $showAlert,
+                    actions: { Button("확인") {} },
+                    message: { Text(alertMessage) }
+                )
                 
                 
-            }  // << ZStack
+                
+            }  // MARK:  << [ ZStack ]
             .ignoresSafeArea(.keyboard)
+            .navigationBarBackButtonHidden(true)
             .onAppear() {
-                BamYangGang.info("View AuthView")
+                BamYangGang.debug("-> Auth View")
                 
-                self.rdViewModel.fetchCheckData()
                 
-                // 업데이트 로직 적용 필요.
-                self.checkUpdate {
-                    if UserDefaults.standard.bool(forKey: "Auth") {
-                        onSuccess()
-                    }
+                // 추후 작업
+//                self.rdViewModel.fetchCheckData()
+//                self.checkUpdate {
+//                    if UserDefaults.standard.bool(forKey: "Auth") {
+//                        viewRouter.navigate(to: .main)
+//                    }
+//                }
+            }
+    }
+        
+    
+    
+    
+    // MARK: [ Function ]
+    // Check Number Condition
+    func checkNumberCondition(value: String) {
+        // (1). Only Number
+        let filtered = value.filter { $0.isNumber }
+        
+        
+        // (2). Maximum 11
+        if filtered.count > 11 {
+            inputText = String(filtered.prefix(11))
+        } else {
+            inputText = filtered
+        }
+        
+        
+        // (3). Check Number 11
+        if inputText.count == 11 {
+            UIApplication.shared.downKeyboard()
+            
+            // (3)-1. Condition check
+            if inputText == "01012341234" { // Super Number
+                viewRouter.navigate(to: .main)
+                
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    alertMessage = "유효한 전화번호 형식이 아닙니다. (010-XXXX-XXXX)"
+                    showAlert = true
                 }
             }
-    
             
-        }
-        
-        
-    }
-        
-    
-    
-    func onNumberEnteredFully(number: String) {
-        print("✅ 11자리 숫자 입력 완료됨! 함수 실행")
-    
-        
-        UIApplication.shared.downKeyboard()
-        self.inputText = ""
-        
-        print(number)
-        
-        
-        // 조건 체크
-        if number == "01012341234" {
-            UserDefaults.standard.set(true, forKey: "Auth")
-            onSuccess()
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                alertMessage = "유효한 전화번호 형식이 아닙니다. (010-XXXX-XXXX)"
-                showAlert = true
-            }
+            // (3)-2. init TextField
+            self.inputText = ""
         }
     }
     
     
+    
+
+    // Check App Version
     func checkUpdate(completion: @escaping () -> Void) {
         
         if let serverVersion = UserDefaults.standard.string(forKey: "server_iOS_version") {
@@ -162,6 +164,7 @@ struct AuthView: View {
         
     }
     
+   
     
 
 }

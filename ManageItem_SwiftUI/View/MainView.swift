@@ -39,8 +39,6 @@ struct MainView: View {
 
     
     var body: some View {
-        
-        NavigationStack {
             // >> ZStack
             ZStack {
     
@@ -132,7 +130,7 @@ struct MainView: View {
                                         Button("편집") {
                                             print("편집 버튼 클릭됨")
                                             
-                                            viewRouter.currentScreen = .add
+                                            viewRouter.navigate(to: .add)
           
                                        
                                         }
@@ -197,14 +195,11 @@ struct MainView: View {
             } // << ZStack
             .onAppear() {
                 BamYangGang.info("View MainView")
-                BamYangGang.info("= MainView viewWillAppear, viewDidAppear")
 //                self.rdViewModel.fetchCheckData()
                 self.rdViewModel.fetchAllItems()
                 
             }
-            .onDisappear() {
-                BamYangGang.info("= MainView viewWillDisAppear, viewDidDisAppear")
-            }
+            .onDisappear() { }
             .withGlobalLoadingView($rdViewModel.isLoading)  // 로딩 화면 추가
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
@@ -220,8 +215,6 @@ struct MainView: View {
                 })
             )
             .ignoresSafeArea(.keyboard)
-            
-        }
 
     }
     
@@ -233,7 +226,7 @@ struct MainView: View {
         
             // plus
             DispatchQueue.main.async {
-                viewRouter.currentScreen = .add
+                viewRouter.navigate(to: .add)
             }
            
 

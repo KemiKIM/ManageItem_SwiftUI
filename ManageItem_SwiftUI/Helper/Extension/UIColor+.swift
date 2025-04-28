@@ -27,11 +27,15 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 
+    static let defaultColor = UIColor(hexString: "D8BFD8")
+    
     static let lightPink = UIColor(hexString: "ffb6c1")
     static let lightBeige = UIColor(hexString: "e2dbc7")
 }
 
 extension Color {
+    static let defaultColor = Color(UIColor.defaultColor)
+    
     static let lightPink = Color(UIColor.lightPink)
     static let lightBeige = Color(UIColor.lightBeige)
 

@@ -9,24 +9,27 @@ import SwiftUI
 
 struct AuthView: View {
     @EnvironmentObject var viewRouter: ViewRouter
-    @EnvironmentObject var rdViewModel: RDViewModel
     
+    // TextField
     @State var inputText = ""
 
+    // Alert
     @State var showAlert = false
     @State var alertMessage = ""
     
     
     
+    
+    
+    
     // MARK: [ Body ]
-    
-    
     var body: some View {
+        
         
             // MARK:  >> [ ZStack ]
             ZStack {
                 Color(UIColor.systemGray2)
-                    .ignoresSafeArea() // SafeArea위로
+                    .ignoresSafeArea() // SafeArea 위아래
                     .onTapGesture {
                         UIApplication.shared.downKeyboard()
                     }
@@ -35,9 +38,9 @@ struct AuthView: View {
                 VStack {
                  
                     
-                    // VStack: TextField
+                    // VStack: 1. TextField
                     TextField("숫자를 입력하세요", text: $inputText)
-                        .keyboardType(.numberPad) // 숫자 키보드 설정
+                        .keyboardType(.numberPad)
                         .padding(.leading, 10)
                         .frame(width: UIScreen.main.bounds.width * 0.8, height: 50)
                         .background(Color(.systemGray6))
@@ -59,10 +62,10 @@ struct AuthView: View {
                     
                     
                     
-                    // VStack: Btn
-                    Button("Go to Main View") {
-                        UserDefaults.standard.set(false, forKey: "Auth")
+                    // VStack: 2. Btn
+                    Button("체험해보기") {
                         viewRouter.navigate(to: .main)
+//                        viewRouter.navigate(to: .experience)
                     }
                     .foregroundStyle(Color(UIColor.black))
                     .background(Color(UIColor.systemPink))
@@ -87,14 +90,10 @@ struct AuthView: View {
             .onAppear() {
                 BamYangGang.debug("-> Auth View")
                 
-                
-                // 추후 작업
-//                self.rdViewModel.fetchCheckData()
-//                self.checkUpdate {
-//                    if UserDefaults.standard.bool(forKey: "Auth") {
-//                        viewRouter.navigate(to: .main)
-//                    }
-//                }
+                // 인증 O
+                if UserDefaults.standard.bool(forKey: "Auth") {
+                    viewRouter.navigate(to: .main)
+                }
             }
     }
         
@@ -137,34 +136,6 @@ struct AuthView: View {
     }
     
     
-    
-
-    // Check App Version
-    func checkUpdate(completion: @escaping () -> Void) {
-        
-        if let serverVersion = UserDefaults.standard.string(forKey: "server_iOS_version") {
-            if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-             
-                BamYangGang.info("serverVersion = \(serverVersion)")
-                BamYangGang.info("appVersion = \(appVersion)")
-                
-                
-                if serverVersion > appVersion {
-                    BamYangGang.error("업데이트 필요!")
-                    
-                } else {
-                    completion()
-                }
-                
-            }
-        } else {
-            // 추출 불가
-            completion()
-        }
-        
-    }
-    
-   
     
 
 }

@@ -221,6 +221,35 @@ struct MainView: View {
     
     
     
+    
+    
+    // MARK: [ Function ]
+    // Check App Version
+    func checkUpdate(completion: @escaping () -> Void) {
+        
+        if let serverVersion = UserDefaults.standard.string(forKey: "server_iOS_version") {
+            if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+             
+                BamYangGang.info("serverVersion = \(serverVersion)")
+                BamYangGang.info("appVersion = \(appVersion)")
+                
+                
+                if serverVersion > appVersion {
+                    BamYangGang.error("업데이트 필요!")
+                    
+                } else {
+                    completion()
+                }
+                
+            }
+        } else {
+            // 추출 불가
+            completion()
+        }
+        
+    }
+    
+    
     func handleButtonAction() {
         if customBtn == "plus" {
         
@@ -236,6 +265,8 @@ struct MainView: View {
             searchBar?.becomeFirstResponder()
         }
     }
+    
+    
     
     
 }

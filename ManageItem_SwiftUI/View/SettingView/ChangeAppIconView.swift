@@ -1,32 +1,17 @@
 //
-//  SettingView.swift
+//  ChangeAppIconView.swift
 //  ManageItem_SwiftUI
 //
-//  Created by 김성호 on 4/22/25.
+//  Created by 김성호 on 4/28/25.
 //
 
 import SwiftUI
 
-struct SettingView: View {
-    @State private var searchText: String = ""
-    @State private var isSearchActive: Bool = false
-    @State private var searchBar: UISearchBar? = nil
-
-    
+struct ChangeAppIconView: View {
+    @Binding var showChangeAppIconView: Bool
     
     var body: some View {
-        VStack(spacing: 20) {
-            
-            
-            Button("검색 버튼으로 변경") {
-                UserDefaults.standard.set("search", forKey: "customBtn")
-            }
-            
-            Button("추가 버튼으로 변경") {
-                UserDefaults.standard.set("plus", forKey: "customBtn")
-            }
-            
-            
+        HStack {
             Button("기본 아이콘으로 변경") {
                 changeAppIcon(to: nil)
             }
@@ -34,15 +19,10 @@ struct SettingView: View {
             Button("AppIcon1로 변경") {
                 changeAppIcon(to: "AppIcon1")
             }
-
-//            Button("AppIcon2로 변경") {
-//                changeAppIcon(to: "AppIcon2")
-//            }
+            
         }
-        .padding()
-        .onAppear() {
-            BamYangGang.info("View SettingView")
-        }
+        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.2)
+        .background(Color.white)
     }
     
     
@@ -64,6 +44,4 @@ struct SettingView: View {
         }
  
     }
-    
-    
 }

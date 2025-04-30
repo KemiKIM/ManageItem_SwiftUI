@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct MainView: View {
     @EnvironmentObject var viewRouter: ViewRouter
@@ -20,6 +21,7 @@ struct MainView: View {
     @State private var isSearchActive: Bool = false
     
     @State private var searchBar: UISearchBar? = nil
+    
     
     
     var customBtn: String = UserDefaults.standard.string(forKey: "customBtn") ?? "search"
@@ -41,10 +43,8 @@ struct MainView: View {
     var body: some View {
             // >> ZStack
             ZStack {
-    
-                
-                
                 Color(UIColor.white).ignoresSafeArea() // background Color
+                
                 
                 // >> VStack
                 VStack(spacing: 0) {
@@ -54,105 +54,11 @@ struct MainView: View {
                     
                     
                     // ✅ 고정 헤더
-                    HStack {
-                        Text("장비명").frame(maxWidth: .infinity, alignment: .leading)
-                        Text("파트명").frame(maxWidth: .infinity, alignment: .leading)
-                        Text("파트번호").frame(maxWidth: .infinity, alignment: .leading)
-                        Text("위치").frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding()
-                    .font(.headline)
-                    .frame(height: 40)
-                    .background(Color.blue.edgesIgnoringSafeArea([]))
-                    
-                    
+                    self.headerView
                     
                     
                     // ✅ 데이터 리스트
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            if filteredItems.isEmpty {
-                                VStack {
-                                    Spacer()
-                                    
-                                    Text("검색 결과 없음")
-                                        .foregroundColor(.black)
-                                        .font(.title3)
-                                        .padding()
-                                    
-                                    Spacer()
-                                }
-                                
-                            } else {
-                                ForEach(filteredItems) { item in
-                                    HStack(spacing: 0) {
-                                        Text(item.name)
-                                            .lineLimit(2)
-                                            .truncationMode(.tail)
-                                                .multilineTextAlignment(.leading)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.leading, 10)
-                                        
-                                        ZStack {
-                                               Color.gray // 셀 높이에 맞게 배경 입히기
-                                               Text(item.partName)
-                                                   .frame(maxWidth: .infinity, alignment: .leading)
-                                                   .lineLimit(2)
-                                                   .multilineTextAlignment(.leading)
-                                                   .padding(.leading, 10)
-                                           }
-                                        
-                                        Text(item.partNumber)
-                                            .lineLimit(2)
-                                            .truncationMode(.tail)
-                                                .multilineTextAlignment(.leading)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.leading, 10)
-                                        
-                                        ZStack {
-                                               Color.gray // 셀 높이에 맞게 배경 입히기
-                                               Text(item.location)
-                                                   .frame(maxWidth: .infinity, alignment: .leading)
-                                                   .lineLimit(2)
-                                                   .multilineTextAlignment(.leading)
-                                                   .padding(.leading, 10)
-                                           }
-                                        
-                                    }
-                                    .overlay(
-                                        Rectangle()
-                                            .frame(height: 0.5)
-                                            .foregroundColor(.gray),
-                                        alignment: .bottom
-                                    )
-                                    .alert("알림", isPresented: $showAlert, presenting: alertMessage, actions: { _ in
-                                     
-                                        Button("편집") {
-                                            print("편집 버튼 클릭됨")
-                                            
-                                            viewRouter.navigate(to: .add)
-          
-                                       
-                                        }
-                                        Button("취소", role: .cancel) {
-                                            print("취소 버튼 클릭됨")
-                                        }
-                                    }, message: { message in // message 클로저
-                                        Text(message) // 동적으로 전달된 alertMessage
-                                    })
-                                    .onTapGesture {
-                                        print("Tapped item: \(item)")
-                                        alertMessage = "이름: \(item.name)\n부품명: \(item.partName)\n부품번호: \(item.partNumber)\n위치: \(item.location)"
-                                        
-                                        showAlert = true
-                                    }
-                                  
-                                    
-                                    
-                                }
-                            }
-                        }
-                    }
+                    itemListView
                     .simultaneousGesture(
                         DragGesture(minimumDistance: 1).onChanged { _ in
                             UIApplication.shared.downKeyboard()
@@ -162,34 +68,10 @@ struct MainView: View {
                         self.rdViewModel.fetchAllItems()
                     }
                     .tint(Color(UIColor.red))
-                  
-               
-                    
-                 
-                    
-                    
                 } // << VStack
                 
                 
-                
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            // 버튼 액션
-                            print("Button tapped")
-                            handleButtonAction()
-                        }) {
-                            Image(systemName: customBtn == "search" ? "magnifyingglass" : "plus")
-                                .font(.system(size: 55)) // 버튼 크기 조정
-                                .foregroundColor(.blue)
-                                .background(Color.white)
-                        }
-                        .padding(.bottom, 60) // 하단 여백111
-                        .padding(.trailing, 20) // 우측 여백
-                    }
-                }
+                self.customButton
                 
   
             } // << ZStack
@@ -205,14 +87,20 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Main View")
             .navigationBarItems(
-                leading: NavigationLink(destination: SettingView(), label: {
-                    Image(systemName: "gearshape.fill")
+                leading: Button(action: {
+                    // AddView로 네비게이션
+                    viewRouter.navigate(to: .setting)
+                }) {
+                    Image(systemSymbol: .gearshape2Fill)
                         .foregroundColor(.blue)
-                }),
-                trailing: NavigationLink(destination: AddView(), label: {
-                    Image(systemName: "plus.circle.fill")
+                },
+                trailing: Button(action: {
+                    // AddView로 네비게이션
+                    viewRouter.navigate(to: .add(title: "추가하기", receiveLabels: []))
+                }) {
+                    Image(systemSymbol: .plusDiamond)
                         .foregroundColor(.red)
-                })
+                }
             )
             .ignoresSafeArea(.keyboard)
 
@@ -221,8 +109,111 @@ struct MainView: View {
     
     
     
+    // MARK: [ Header ]
+    
+    private var headerView: some View {
+        HStack {
+            Text("장비명").frame(maxWidth: .infinity, alignment: .leading)
+            Text("파트명").frame(maxWidth: .infinity, alignment: .leading)
+            Text("파트번호").frame(maxWidth: .infinity, alignment: .leading)
+            Text("위치").frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding()
+        .font(.headline)
+        .frame(height: 40)
+        .background(Color.blue.edgesIgnoringSafeArea([]))
+    }
     
     
+    
+    
+    private var customButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {
+                    print("Button tapped")
+                    // Handle button action
+                }) {
+                    Image(systemSymbol: (customBtn == "search") ? .magnifyingglass : .plusBubble)
+                        .font(.system(size: 55)) // 버튼 크기 조정
+                        .foregroundColor(.blue)
+                        .background(Color.white)
+                }
+                .padding(.bottom, 60)
+                .padding(.trailing, 20)
+            }
+        }
+    }
+    
+    private var itemListView: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                if filteredItems.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("검색 결과 없음")
+                            .foregroundColor(.black)
+                            .font(.title3)
+                            .padding()
+                        Spacer()
+                    }
+                } else {
+                    ForEach(filteredItems) { item in
+                        HStack(spacing: 0) {
+                            Text(item.name)
+                                .lineLimit(2)
+                                .truncationMode(.tail)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            ZStack {
+                                Color.gray
+                                Text(item.partName)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.leading, 10)
+                            }
+                            
+                            Text(item.partNumber)
+                                .lineLimit(2)
+                                .truncationMode(.tail)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            ZStack {
+                                Color.gray
+                                Text(item.location)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.leading, 10)
+                            }
+                        }
+                        .overlay(Rectangle().frame(height: 0.5).foregroundColor(.gray), alignment: .bottom)
+                        .alert("알림", isPresented: $showAlert, presenting: alertMessage, actions: { _ in
+                            Button("편집") {
+                                let delivery = ["\(item.name)", "\(item.partName)", "\(item.partNumber)", "\(item.location)"]
+                                viewRouter.navigate(to: .add(title: "편집하기", receiveLabels: delivery))
+                            }
+                            Button("취소", role: .cancel) {}
+                        }, message: { message in
+                            Text(message)
+                        })
+                        .onTapGesture {
+                            alertMessage = "이름: \(item.name)\n부품명: \(item.partName)\n부품번호: \(item.partNumber)\n위치: \(item.location)"
+                            showAlert = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // MARK: [ Function ]
     // Check App Version
     func checkUpdate(completion: @escaping () -> Void) {
@@ -255,7 +246,7 @@ struct MainView: View {
         
             // plus
             DispatchQueue.main.async {
-                viewRouter.navigate(to: .add)
+                viewRouter.navigate(to: .add(title: "추가하기", receiveLabels: []))
             }
            
 

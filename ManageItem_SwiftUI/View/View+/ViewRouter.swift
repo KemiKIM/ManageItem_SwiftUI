@@ -9,12 +9,18 @@ import SwiftUI
 
 class ViewRouter: ObservableObject {
     @Published var path = NavigationPath()
-
-      func reset() {
-          path.removeLast(path.count)
-      }
-
-      func navigate(to screen: Screen) {
-          path.append(screen)
-      }
+    
+    func reset() {
+        path.removeLast(path.count)
+    }
+    
+    func navigate(to screen: Screen) {
+        path.append(screen)
+    }
+    
+    func pop() {
+        if !path.isEmpty {
+            path.removeLast()
+        }
+    }
 }

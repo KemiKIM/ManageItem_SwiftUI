@@ -20,8 +20,8 @@ struct RootView: View {
                         AuthView()
                     case .main:
                         MainView()
-                    case .add:
-                        AddView()
+                    case .add(let title, let receiveLabels):
+                        AddView(title: title, receiveLabels: receiveLabels)
                     case .setting:
                         SettingView()
                     case .experience:
@@ -29,7 +29,7 @@ struct RootView: View {
                     }
                 }
                 .onAppear {
-                    
+
                     // Init = AuthView
                     if viewRouter.path.isEmpty {
                         viewRouter.navigate(to: .auth)

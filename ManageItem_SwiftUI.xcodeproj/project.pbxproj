@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB4463F62DC210C200AF84EE /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = DB4463F52DC210C200AF84EE /* SFSafeSymbols */; };
 		DBA4B1232DB3408B00E27F7E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DBA4B1222DB3408B00E27F7E /* Lottie */; };
 		DBF9E7CF2DB33B8200D57A23 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DBF9E7CE2DB33B8200D57A23 /* FirebaseCore */; };
 		DBF9E7D12DB33B8200D57A23 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = DBF9E7D02DB33B8200D57A23 /* FirebaseDatabase */; };
@@ -39,6 +40,7 @@
 				DBF9E7D52DB33B8200D57A23 /* FirebaseStorage in Frameworks */,
 				DBF9E7DA2DB33D4400D57A23 /* SwiftyBeaver in Frameworks */,
 				DBF9E7CF2DB33B8200D57A23 /* FirebaseCore in Frameworks */,
+				DB4463F62DC210C200AF84EE /* SFSafeSymbols in Frameworks */,
 				DBF9E7D32DB33B8200D57A23 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +91,7 @@
 				DBF9E7D92DB33D4400D57A23 /* SwiftyBeaver */,
 				DBA4B1222DB3408B00E27F7E /* Lottie */,
 				DBFBDE5D2DBF6B0E0065DF7C /* PopupView */,
+				DB4463F52DC210C200AF84EE /* SFSafeSymbols */,
 			);
 			productName = ManageItem_SwiftUI;
 			productReference = DB69EB722DB28CE400E31CDA /* ManageItem_SwiftUI.app */;
@@ -123,6 +126,7 @@
 				DBF9E7D82DB33D4400D57A23 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 				DBA4B1212DB3408B00E27F7E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				DBFBDE5C2DBF6B0E0065DF7C /* XCRemoteSwiftPackageReference "PopupView" */,
+				DB4463F42DC210C200AF84EE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB69EB732DB28CE400E31CDA /* Products */;
@@ -374,6 +378,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB4463F42DC210C200AF84EE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.0;
+			};
+		};
 		DBA4B1212DB3408B00E27F7E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -409,6 +421,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DB4463F52DC210C200AF84EE /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB4463F42DC210C200AF84EE /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
 		DBA4B1222DB3408B00E27F7E /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DBA4B1212DB3408B00E27F7E /* XCRemoteSwiftPackageReference "lottie-ios" */;

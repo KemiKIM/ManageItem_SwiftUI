@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ExperienceView: View {
     
-    
-    
+  
     var body: some View {
 
             VStack(spacing: 20) {

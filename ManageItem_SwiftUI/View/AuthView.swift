@@ -45,7 +45,6 @@ struct AuthView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.8, height: 50)
                         .background(Color(.systemGray6))
                         .cornerRadius(10)
-                        .padding()
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) { // 키보드 바로 위 툴바
                                 Spacer()
@@ -91,9 +90,9 @@ struct AuthView: View {
                 BamYangGang.debug("-> Auth View")
                 
                 // 인증 O
-                if UserDefaults.standard.bool(forKey: "Auth") {
-                    viewRouter.navigate(to: .main)
-                }
+//                if UserDefaults.standard.bool(forKey: "Auth") {
+//                    viewRouter.navigate(to: .main)
+//                }
             }
     }
         

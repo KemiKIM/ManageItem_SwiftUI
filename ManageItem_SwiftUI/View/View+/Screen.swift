@@ -5,10 +5,10 @@
 //  Created by 김성호 on 4/27/25.
 //
 
-enum Screen {
+enum Screen: Hashable {
     case auth
     case main
-    case add
+    case add(title: String, receiveLabels: [String])
     case setting
     case experience
 }

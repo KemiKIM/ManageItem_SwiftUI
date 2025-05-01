@@ -1,32 +1,15 @@
 //
-//  AddView.swift
+//  AddView+Body.swift
 //  ManageItem_SwiftUI
 //
-//  Created by 김성호 on 4/24/25.
+//  Created by 김성호 on 4/30/25.
 //
 
 import SwiftUI
-import SFSafeSymbols
 
-struct AddView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
-    
-    @State var title: String  // 타이틀을 받아옴
-    @State var receiveLabels: [String]  // labels를 받아옴
-    
-    // TextField
-    let labels = ["장비명", "부품명", "파트번호", "위치"]
-    @State var inputValues: [String] = Array(repeating: "", count: 4)
-    
-    // Alert
-    @State var showAlert = false
-    @State var alertMessage = ""
-    
-  
-    
+extension AddView {
     var body: some View {
-        
-        // MARK:  >> [ ScrollView + ZStack ]
+        // MARK:  >> [ ScrollView + Lazy ]
         ScrollView {
             LazyVStack() {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.2)
@@ -70,31 +53,13 @@ struct AddView: View {
                 
                 
                 
-                
-                Button(action: {
-                    showAlert = true
-                    self.alertMessage = "\(inputValues)"
-                    let _ = print("전달받은 값: \(inputValues)")
-                    
-                    
-                    
-                }) {
-                    Text("추가하기")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .foregroundStyle(.white)
-                       
-                }
-                .background(Color.defaultColor)
-                .cornerRadius(10)
-                .frame(width: UIScreen.main.bounds.width * 0.9,
-                       height: UIScreen.main.bounds.height * 0.05
-                )
+                self.addBtn
                 // End: VStack: Btn
             }
             .background(.white)
             .padding()
             .onAppear() {
-                BamYangGang.info("View Add View")
+                BamYangGang.info("View Add View \(width), \(height)")
                 
                 
                 if self.receiveLabels != [] {
@@ -147,7 +112,4 @@ struct AddView: View {
             }
         }
     }
-    
-    
-    
 }

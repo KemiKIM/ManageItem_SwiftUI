@@ -9,11 +9,24 @@ import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+   
     
     
     var body: some View {
+        
         NavigationStack(path: $viewRouter.path) {
-            EmptyView()
+            Color.clear // = Launcher Screen
+                .onAppear {
+                    
+                    // Init: Set iPhone Screen Size
+                    self.set_iPhoneScreenSize()
+                    
+                    // Init: AuthView
+                    if viewRouter.path.isEmpty {
+                        viewRouter.navigate(to: .auth)
+                    }
+                }
+            
                 .navigationDestination(for: Screen.self) { screen in
                     switch screen {
                     case .auth:
@@ -28,13 +41,22 @@ struct RootView: View {
                         ExperienceView()
                     }
                 }
-                .onAppear {
-
-                    // Init = AuthView
-                    if viewRouter.path.isEmpty {
-                        viewRouter.navigate(to: .auth)
-                    }
-                }
+        }
+    }
+    
+    
+    
+    // Set iPhone Screen Size
+    func set_iPhoneScreenSize() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let screenSize = windowScene.screen.bounds.size as CGSize? {
+            
+            BamYangGang.info("Set iPhone Screen Size: \(screenSize)")
+            UserDefaults.standard.set(screenSize.width, forKey: "iPhoneScreen_Width")
+            UserDefaults.standard.set(screenSize.height, forKey: "iPhoneScreen_Height")
+            
+        } else {
+            BamYangGang.error("Unable to set iPhone Screen Size.")
         }
     }
 }

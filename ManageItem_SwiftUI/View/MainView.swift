@@ -11,7 +11,7 @@ import SFSafeSymbols
 struct MainView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var rdViewModel: RDViewModel
-    
+        
     @State private var searchText = ""
     @FocusState private var isTextFieldFocused: Bool
     
@@ -21,6 +21,10 @@ struct MainView: View {
     @State private var isSearchActive: Bool = false
     
     @State private var searchBar: UISearchBar? = nil
+    
+    // iPhone Screen Size
+    let width = UIScreen.screenWidth
+    let height = UIScreen.screenHeight
     
     
     
@@ -76,9 +80,11 @@ struct MainView: View {
   
             } // << ZStack
             .onAppear() {
-                BamYangGang.info("View MainView")
+                
+                BamYangGang.info("View MainView \(width), \(height)")
 //                self.rdViewModel.fetchCheckData()
                 self.rdViewModel.fetchAllItems()
+                
                 
             }
             .onDisappear() { }

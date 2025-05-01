@@ -28,7 +28,8 @@ struct ManageItem_SwiftUIApp: App {
                 .environmentObject(rdViewModel)
 //            TestView()
 //            SettingView()
-//            AddView()
+//                .environmentObject(phoneScreenSize)
+//            AddView(title: "", receiveLabels: [])
         }
     }
 }

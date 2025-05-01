@@ -18,6 +18,10 @@ struct AuthView: View {
     @State var alertMessage = ""
     
     
+    // iPhone Screen Size
+    let width = UIScreen.screenWidth
+    let height = UIScreen.screenHeight
+   
     
     
     
@@ -87,7 +91,7 @@ struct AuthView: View {
             .ignoresSafeArea(.keyboard)
             .navigationBarBackButtonHidden(true)
             .onAppear() {
-                BamYangGang.debug("-> Auth View")
+                BamYangGang.debug("-> Auth View \(width), \(height)")
                 
                 // 인증 O
 //                if UserDefaults.standard.bool(forKey: "Auth") {

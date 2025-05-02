@@ -59,7 +59,7 @@ extension AddView {
             .background(.white)
             .padding()
             .onAppear() {
-                BamYangGang.info("View Add View \(width), \(height)")
+                MANGO.info("View Add View \(width), \(height)")
                 
                 
                 if self.receiveLabels != [] {
@@ -74,8 +74,11 @@ extension AddView {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) { // 키보드 바로 위 툴바
                     Spacer()
-                    Button("완료") {
+                    Button(action: {
                         UIApplication.shared.downKeyboard()
+                    }) {
+                        Image(systemSymbol: .keyboardChevronCompactDown)
+                            .foregroundColor(Color.defaultColor)
                     }
                 }
             }
@@ -106,8 +109,8 @@ extension AddView {
                     // 뒤로가기 동작 구현
                     viewRouter.pop()  // 또는 self.presentationMode.wrappedValue.dismiss() 사용
                 }) {
-                    Image(systemSymbol: .arrowLeftToLine)  // 커스텀 뒤로가기 아이콘
-                        .foregroundColor(Color.defaultColor)  // 뒤로가기 버튼 색상
+                    Image(systemSymbol: .chevronBackward)
+                        .foregroundColor(Color.defaultColor)
                 }
             }
         }

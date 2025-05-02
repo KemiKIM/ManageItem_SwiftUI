@@ -21,7 +21,13 @@ struct SearchBarWrapper: UIViewRepresentable {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "완료", style: .done, target: context.coordinator, action: #selector(context.coordinator.dismissKeyboard))
+        let doneButton = UIBarButtonItem(
+            image: UIImage(systemSymbol: .keyboardChevronCompactDown), // SF Symbol 이름
+            style: .done,
+            target: context.coordinator,
+            action: #selector(context.coordinator.dismissKeyboard)
+        )
+        doneButton.tintColor = .defaultColor
         
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.items = [flexible, doneButton]

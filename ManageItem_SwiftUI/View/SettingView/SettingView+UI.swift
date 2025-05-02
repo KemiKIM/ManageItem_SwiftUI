@@ -10,10 +10,10 @@ import SwiftUI
 extension SettingView {
     
     // MARK: 1. Chagne Search Btn
-    func changeSearchBtn(geometry: GeometryProxy) -> some View {
+    var changeSearchBtn: some View {
         Button(action: {
             // 1. completion
-            self.searchBtnTapped()
+            self.changeSearchAndAdd(title: "search")
             
         }) {
             
@@ -24,10 +24,8 @@ extension SettingView {
                 .foregroundColor(.black)
         }
         .background(Color.white)
-        .frame(width: geometry.size.width * 0.9,
-               height: geometry.size.height * 0.1)
-//        .frame(width: phoneScreenSize.screenSize.width * 0.9,
-//               height: phoneScreenSize.screenSize.height * 0.1)
+        .frame(width: UIScreen.screenWidth * 0.9,
+               height: UIScreen.screenHeight * 0.1)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(searchBorder, lineWidth: 2)
@@ -38,10 +36,10 @@ extension SettingView {
     
     
     // MARK: 2. Change Add Btn
-    func changeAddBtn(geometry: GeometryProxy) -> some View {
+    var changeAddBtn: some View {
         Button(action: {
             // 1. completion
-            self.addBtnTapped()
+            self.changeSearchAndAdd(title: "add")
             
         }) {
             // 2. Set
@@ -51,8 +49,8 @@ extension SettingView {
                 .foregroundColor(.black)
         }
         .background(Color.white)
-        .frame(width: geometry.size.width * 0.9,
-               height: geometry.size.height * 0.1)
+        .frame(width: UIScreen.screenWidth * 0.9,
+               height: UIScreen.screenHeight * 0.1)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(addBorder, lineWidth: 2)
@@ -62,12 +60,14 @@ extension SettingView {
     
     
     
+    
+    
     // MARK: 3. Set Auth Toggle
-    func setAuthToggle(geometry: GeometryProxy) -> some View {
+    var setAuthToggle: some View {
         Toggle("인증화면", isOn: $isAuth)
             .padding()
-            .frame(width: geometry.size.width * 0.9,
-                   height: geometry.size.height * 0.1)
+            .frame(width: UIScreen.screenWidth * 0.9,
+                   height: UIScreen.screenHeight * 0.1)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.lightPink, lineWidth: 2)
@@ -80,7 +80,7 @@ extension SettingView {
 
     
     // MARK: 4. Move To Change AppIcon View
-    func changeIconBtn(geometry: GeometryProxy) -> some View {
+    var changeIconBtn: some View {
         Button(action: {
             // 1. completion
             withAnimation {
@@ -95,8 +95,8 @@ extension SettingView {
                 .foregroundColor(.black)
             
         }
-        .frame(width: geometry.size.width * 0.9,
-               height: geometry.size.height * 0.08)
+        .frame(width: UIScreen.screenWidth * 0.9,
+               height: UIScreen.screenHeight * 0.08)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.lightPink, lineWidth: 2)

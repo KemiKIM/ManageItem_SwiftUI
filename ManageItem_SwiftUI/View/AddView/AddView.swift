@@ -28,14 +28,4 @@ struct AddView: View {
     @State var showAlert = false
     @State var alertMessage = ""
     
-    
-    // MARK: [ UI ]
-    
-  
-    
-    
-    
-    
-    
-    
 }

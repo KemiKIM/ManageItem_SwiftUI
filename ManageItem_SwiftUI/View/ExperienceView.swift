@@ -17,7 +17,7 @@ struct ExperienceView: View {
             }
             .padding()
             .onAppear() {
-                BamYangGang.info("View Add View")
+                MANGO.info("View Add View")
             }
             
         }

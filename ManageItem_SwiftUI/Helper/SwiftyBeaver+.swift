@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyBeaver
 
-public let BamYangGang = SwiftyBeaver.self
+public let MANGO = SwiftyBeaver.self
 
 public func configureSwiftyBeaver() {
     let console = ConsoleDestination()

@@ -27,21 +27,19 @@ extension SettingView {
                     
                     
                     // 1. Change (Search Btn <-> Add Btn)
-                    self.changeSearchBtn(geometry: geometry)
-                    self.changeAddBtn(geometry: geometry)
+                    self.changeSearchBtn
+                    self.changeAddBtn
                     
                     // 2. Set Auth Toggle
-                    self.setAuthToggle(geometry: geometry)
+                    self.setAuthToggle
                     
                     // 3. Move to Change Icon View
-                    self.changeIconBtn(geometry: geometry)
+                    self.changeIconBtn
                 }
                 .onAppear() {
-                    BamYangGang.info("SettingView \(width), \(height)")
+                    MANGO.info("SettingView \(width), \(height)")
                     
-                    if isSearchTapped == isAddTapped {
-                        UserDefaults.standard.set(true, forKey: "State_Search")
-                    }
+                    self.onAppear_SettingView()
                 }
                 .padding()
                 // 새로운 뷰가 나타날 때 기존 뷰의 알파값을 0.3으로 설정
@@ -87,7 +85,7 @@ extension SettingView {
                 Button(action: {
                     viewRouter.pop()
                 }) {
-                    Image(systemSymbol: .arrowLeftToLine)
+                    Image(systemSymbol: .chevronBackward)
                         .foregroundColor(Color.defaultColor)
                 }
             }

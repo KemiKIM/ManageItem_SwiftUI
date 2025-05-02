@@ -20,10 +20,10 @@ extension RDViewModel {
             DispatchQueue.main.async {
                 if let error = error {
                     self.writeStatusMessage = "쓰기 실패: \(error.localizedDescription)"
-                    BamYangGang.error("쓰기 실패: \(error.localizedDescription)")
+                    MANGO.error("쓰기 실패: \(error.localizedDescription)")
                 } else {
                     self.writeStatusMessage = "쓰기 성공"
-                    BamYangGang.info("쓰기 성공")
+                    MANGO.info("쓰기 성공")
                 }
             }
         }
@@ -48,10 +48,10 @@ extension RDViewModel {
             DispatchQueue.main.async {
                 if let error = error {
                     self.writeStatusMessage = "업데이트 실패: \(error.localizedDescription)"
-                    BamYangGang.error("업데이트 실패: \(error.localizedDescription)")
+                    MANGO.error("업데이트 실패: \(error.localizedDescription)")
                 } else {
                     self.writeStatusMessage = "업데이트 성공"
-                    BamYangGang.debug("업데이트 성공")
+                    MANGO.debug("업데이트 성공")
                 }
             }
         }

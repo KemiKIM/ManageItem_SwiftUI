@@ -51,12 +51,12 @@ struct RootView: View {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let screenSize = windowScene.screen.bounds.size as CGSize? {
             
-            BamYangGang.info("Set iPhone Screen Size: \(screenSize)")
+            MANGO.info("Set iPhone Screen Size: \(screenSize)")
             UserDefaults.standard.set(screenSize.width, forKey: "iPhoneScreen_Width")
             UserDefaults.standard.set(screenSize.height, forKey: "iPhoneScreen_Height")
             
         } else {
-            BamYangGang.error("Unable to set iPhone Screen Size.")
+            MANGO.error("Unable to set iPhone Screen Size.")
         }
     }
 }

@@ -11,7 +11,7 @@ import FirebaseDatabase
 extension RDViewModel {
     
     // MARK: fetch - Check
-    func fetchCheckData() {
+    func fetchCheckData(completion: @escaping () -> Void) {
         self.isLoading = true
         
         
@@ -29,25 +29,24 @@ extension RDViewModel {
         
             
             
-            // 서버 버전 정보 추출
-            if let version = value["iOS_Version"] as? String {
-                let checkData = CheckModel(iOS_Version: version)
-                
-                DispatchQueue.main.async {
-                    self.checkModel = checkData
-                    
-                    if let extractedVersion = self.checkModel?.iOS_Version.replacingOccurrences(of: "\"", with: "") {
-                        UserDefaults.standard.set(extractedVersion, forKey: "server_iOS_version")
-                    }
-                }
-                
-            } else {
-                
-                DispatchQueue.main.async {
-                    self.errorMessage = "버전 정보 형식이 잘못되었습니다."
-                }
+            // Check Data 추출
+            // 1. Version
+            guard let version = value["version"] as? String else {
+                self.errorMessage = "version error"
+                print("version error")
+                return
             }
             
+            // 2. Auth Code
+            guard let authCode = value["auth_code"] as? String else {
+                self.errorMessage = "auth_code error"
+                print("auth_code error")
+                return
+            }
+            
+            let checkData = CheckModel(version: version, auth_code: authCode)
+            self.checkModel = checkData
+            completion()
         }
     }
     

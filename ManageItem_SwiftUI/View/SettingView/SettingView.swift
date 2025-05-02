@@ -21,10 +21,10 @@ struct SettingView: View {
     
     
     // 1. Search or Add
-    @State var isSearchTapped = UserDefaults.standard.bool(forKey: "State_Search")
-    @State var isAddTapped = UserDefaults.standard.bool(forKey: "State_Add")
-    @State var searchBorder: Color = UserDefaults.standard.bool(forKey: "State_Search") ? Color.green : Color(UIColor.systemGray5)
-    @State var addBorder: Color = UserDefaults.standard.bool(forKey: "State_Add") ? Color.green : Color(UIColor.systemGray5)
+//    @State var isSearchTapped = UserDefaults.standard.bool(forKey: "State_Search")
+//    @State var isAddTapped = UserDefaults.standard.bool(forKey: "State_Add")
+    @State var searchBorder: Color = Color(UIColor.systemGray5)
+    @State var addBorder: Color = Color(UIColor.systemGray5)
 
     
     // 2. Auth
@@ -47,31 +47,64 @@ struct SettingView: View {
     
     // MARK: [ Function ]
     
-    func searchBtnTapped() {
-        isSearchTapped = true
-        isAddTapped = false
-        searchBorder = Color.green
-        addBorder = Color(UIColor.systemGray5)
-        
-        
-        // 상태를 UserDefaults에 저장
-        UserDefaults.standard.set(true, forKey: "State_Search")
-        UserDefaults.standard.set(false, forKey: "State_Add")
+//    func searchBtnTapped() {
+//        isSearchTapped = true
+//        isAddTapped = false
+//        searchBorder = Color.green
+//        addBorder = Color(UIColor.systemGray5)
+//        
+//        
+//        // 상태를 UserDefaults에 저장
+//        UserDefaults.standard.set(true, forKey: "State_Search")
+//        UserDefaults.standard.set(false, forKey: "State_Add")
+//        UserDefaults.standard.set("search", forKey: "CustomBtn")
+//    }
+//    
+//    func addBtnTapped() {
+//        isSearchTapped = false
+//        isAddTapped = true
+//        searchBorder = Color(UIColor.systemGray5)
+//        addBorder = Color.green
+//        
+//        
+//        // 상태를 UserDefaults에 저장
+//        UserDefaults.standard.set(false, forKey: "State_Search")
+//        UserDefaults.standard.set(true, forKey: "State_Add")
+//        UserDefaults.standard.set("plus", forKey: "CustomBtn")
+//    }
+    
+    func onAppear_SettingView() {
+        if UserDefaults.standard.string(forKey: "CustomBtn") == nil {
+            self.searchBorder = Color.green
+        } else {
+            if let customBtn = UserDefaults.standard.string(forKey: "CustomBtn") {
+                if customBtn == "search" {
+                    searchBorder = Color.green
+                    addBorder = Color(UIColor.systemGray5)
+                } else {
+                    searchBorder = Color(UIColor.systemGray5)
+                    addBorder = Color.green
+                }
+            }
+        }
     }
     
-    func addBtnTapped() {
-        isSearchTapped = false
-        isAddTapped = true
-        searchBorder = Color(UIColor.systemGray5)
-        addBorder = Color.green
-        
-        
-        // 상태를 UserDefaults에 저장
-        UserDefaults.standard.set(false, forKey: "State_Search")
-        UserDefaults.standard.set(true, forKey: "State_Add")
+    
+    func changeSearchAndAdd(title: String) {
+        if title == "search" {
+            UserDefaults.standard.set("search", forKey: "CustomBtn")
+            searchBorder = Color.green
+            addBorder = Color(UIColor.systemGray5)
+            
+        } else {
+            UserDefaults.standard.set("add", forKey: "CustomBtn")
+            searchBorder = Color(UIColor.systemGray5)
+            addBorder = Color.green
+        }
     }
     
         
+
     
     // Change [ Auth ]
     func changeAuth(_ toggle: Bool) {

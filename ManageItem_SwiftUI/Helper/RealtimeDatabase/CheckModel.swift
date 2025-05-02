@@ -6,5 +6,6 @@
 //
 
 struct CheckModel {
-    var iOS_Version: String
+    var version: String?
+    var auth_code: String?
 }

@@ -17,10 +17,10 @@ extension AuthView {
                     self.inputTextField
                     self.experienceBtn
                 }
+               
                  
             }  // MARK:  << [ ZStack ]
             .ignoresSafeArea(.keyboard)
-            .navigationBarBackButtonHidden(true)
             .onAppear() {
                 self.onAppear_AuthView()
             }

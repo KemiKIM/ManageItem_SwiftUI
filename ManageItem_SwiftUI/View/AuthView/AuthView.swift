@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct AuthView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
-    @EnvironmentObject var rdViewModel: RDViewModel
     
     // TextField
     @State var inputText: String = ""
@@ -22,22 +20,19 @@ struct AuthView: View {
     @State var authCode: String = ""
     @State var version: String = ""
     
-    // iPhone Screen Size
-    let width: CGFloat = UIScreen.screenWidth
-    let height: CGFloat = UIScreen.screenHeight
-    
-    
     // Test Super AuthCode
     let superCode: String = "01012341234"
     
     
-    
-    
-    
-    
+    @Binding var hasStarted: Bool
+//    
+
     
     // MARK: [ Function ]
     func onAppear_AuthView() {
+        print("Hello")
+        
+        
         // 추후 활성화
 //        self.rdViewModel.fetchCheckData {
 //            MANGO.debug(self.rdViewModel.checkModel)
@@ -77,41 +72,6 @@ struct AuthView: View {
     }
     
     
-    func checkSavedAuth() {
-        guard let authCode = self.rdViewModel.checkModel?.auth_code else {
-            // Error 처리
-            return
-        }
-        
-        // 1. 최초 진입
-        if UserDefaults.standard.string(forKey: "SavedAuthCode") == nil {
-            UserDefaults.standard.set(authCode, forKey: "SavedAuthCode")
-            self.authCode = authCode
-        } else {
-            // 2. 서버 인증 번호와 앱 내 저장된 인증번호 비교
-            if let savedAuthCode = UserDefaults.standard.string(forKey: "SavedAuthCode") {
-                if savedAuthCode == authCode {
-                    
-                    // 인증 O
-                    if UserDefaults.standard.bool(forKey: "Auth") {
-                        viewRouter.navigate(to: .main)
-                        return
-                    }
-                    
-                } else {
-                    // 인증번호가 변경됨.
-                    
-                    return
-                }
-            }
-        }
-        
-       
-        
-
-    }
-    
-    
     
     
     
@@ -137,7 +97,7 @@ struct AuthView: View {
 //            if inputText == self.authCode {
             if inputText == self.superCode {
                 
-                viewRouter.navigate(to: .main)
+//                viewRouter.navigate(to: .main)
                 
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

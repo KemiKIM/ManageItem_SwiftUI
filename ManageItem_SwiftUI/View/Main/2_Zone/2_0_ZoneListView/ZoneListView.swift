@@ -11,7 +11,7 @@ import SFSafeSymbols
 struct ZoneListView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     
-    let zones = ["A", "B", "C", "D", "E"]
+    let zones = ["A", "B", "C", "D", "E", "F", "G", "CABINET"]
     
 
     
@@ -24,7 +24,9 @@ struct ZoneListView: View {
         case "C": return .cSquare
         case "D": return .dSquare
         case "E": return .eSquare
-        default: return .aSquare
+        case "F": return .fSquare
+        case "G": return .gSquare
+        default: return .cSquareFill
         }
     }
     

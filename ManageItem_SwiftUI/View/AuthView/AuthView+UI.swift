@@ -48,7 +48,10 @@ extension AuthView {
     var experienceBtn: some View {
         
             Button(action: {
+                
                 hasStarted = true
+                UserDefaults.standard.set(false, forKey: "Verified")
+                
             }) {
                 Text("체험해보기")
                     .underline()

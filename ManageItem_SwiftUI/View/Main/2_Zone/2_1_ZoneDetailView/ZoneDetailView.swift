@@ -22,12 +22,14 @@ struct ZoneDetailView: View  {
     // 이미지 수령 후 작업 필요
     func returnImage(zone: String) -> String {
         switch zone {
-        case "A": return "test"
-        case "B": return "test"
-        case "C": return "test"
-        case "D": return "test"
-        case "E": return "test"
-        default: return "test"
+        case "A": return "Zone_A_B"
+        case "B": return "Zone_A_B"
+        case "C": return "Zone_C"
+        case "D": return "Zone_D"
+        case "E": return "Zone_E"
+        case "F": return "Zone_F"
+        case "G": return "Zone_G"
+        default: return "Zone_CABINET"
         }
     }
 }

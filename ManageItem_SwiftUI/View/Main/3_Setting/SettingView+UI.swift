@@ -29,25 +29,39 @@ extension SettingView {
     var authToggle: some View {
         return Toggle("인증화면 활성화", isOn: $hasStarted)
             .onChange(of: hasStarted) { _, newValue in
-                print("기능 A: \(newValue)")
-//                                self.changeAuth(newValue)
                 
-                if hasStarted {
-                    // ON
-                    UserDefaults.standard.set(true, forKey: "hasStarted")
+                if UserDefaults.standard.bool(forKey: "Verified") {
+                    if hasStarted {
+                        // ON
+                        UserDefaults.standard.set(true, forKey: "hasStarted")
+                    } else {
+                        // OFF
+                        UserDefaults.standard.set(false, forKey: "hasStarted")
+                    }
+                    
                 } else {
-                    // OFF
-                    UserDefaults.standard.set(false, forKey: "hasStarted")
+//                     not verified
+                    alertMessage = "현재는 이 기능을 이용할 수 없습니다"
+                    self.showAlert = true
+                    hasStarted = true
                 }
+                
+            
            
                 
             }
             .tint(Color.mSignature)
+            .alert("알림", isPresented: $showAlert) {
+                Button("확인", role: .cancel) {}
+            } message: {
+                Text(alertMessage)
+            }
+      
     }
     
     // Section 2-2
     var changeModeBtn: some View {
-        return   Button {
+        return Button {
             withAnimation {
                 isAgendaExpanded.toggle()
             }

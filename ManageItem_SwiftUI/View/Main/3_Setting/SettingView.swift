@@ -14,6 +14,10 @@ struct SettingView: View {
     @EnvironmentObject var viewRouter: ViewRouter
 
     
+    @State var showAlert = false
+    @State var alertMessage = ""
+
+    
     // 1. Auth
     @State var hasStarted: Bool = UserDefaults.standard.bool(forKey: "hasStarted")
     

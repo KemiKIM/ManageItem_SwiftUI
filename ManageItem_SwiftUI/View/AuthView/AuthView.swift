@@ -102,7 +102,10 @@ struct AuthView: View {
 //            if inputText == self.authCode {
             if inputText == self.superCode {
                 
-//                viewRouter.navigate(to: .main)
+//                hasStarted = true
+                
+                // Success
+                UserDefaults.standard.set(true, forKey: "Verified")
                 
             } else {
                 alertMessage = "유효하지 않은 인증번호입니다."

@@ -9,113 +9,44 @@ import SwiftUI
 import SFSafeSymbols
 
 extension SettingView {
+    
     var body: some View {
+        
         ZStack {
-            Color.customColor.ignoresSafeArea()
-            
+            Color.mBackground.ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 60)
-           
                 
-                Text("설정화면")
-                    .padding(.leading, 30)
-                    .font(.title)
-                    .fontWeight(.bold)
-                   
+                LeftSideTitleText(title: "설정화면")
                 
                 
                 List {
+                    // (1)
                     Section {
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Text("version")
-                                    .foregroundColor(Color.primary)
-                                Spacer()
-                                Text("1.0.2")
-                                    .foregroundColor(.primary)
-                                
-                            }
-                        }
+                        self.versionBtn
                     }
+                    
+                    // (2)
                     Section {
-                        
-                        Toggle("인증화면 활성화", isOn: $hasStarted)
-                            .onChange(of: hasStarted) { _, newValue in
-                                print("기능 A: \(newValue)")
-//                                self.changeAuth(newValue)
-                                
-                                if hasStarted {
-                                    // ON
-                                    UserDefaults.standard.set(true, forKey: "hasStarted")
-                                } else {
-                                    // OFF
-                                    UserDefaults.standard.set(false, forKey: "hasStarted")
-                                }
-                           
-                                
-                            }
-                            .tint(Color.defaultColor)
-
-                        
-                        Button {
-                            withAnimation {
-                                isAgendaExpanded.toggle()
-                            }
-                        } label: {
-                            HStack {
-                                Text("모드 설정")
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Image(systemSymbol: isAgendaExpanded ? .chevronDownCircle : .chevronRightCircle)
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                        self.authToggle
+                        self.changeModeBtn
                         
                         if isAgendaExpanded {
-                            ForEach(AppColorMode.allCases) { mode in
-                                Button {
-                                    appColorMode = mode
-                                    applyAppColorMode(mode)
-                                } label: {
-                                    HStack {
-                                        Text(mode.description)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                        if appColorMode == mode {
-                                            Image(systemSymbol: .checkmarkCircle)
-                                                .foregroundColor(.primary)
-                                        }
-                                    }
-                                    .padding(.leading, 24) // 선택지 들여쓰기
-                                }
-                            }
+                            self.changeModeListBtn
                         }
                     }
                     
+                    // (3)
                     Section {
-                        Button {
-                            // 이동
-                            viewRouter.navigateSetting(to: .add(title: "추가하기", receiveLabels: []))
-                        } label: {
-                            HStack {
-                                Text("추가하기")
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Image(systemSymbol: .plusCircle)
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                        self.addBtn
                     }
                     
-                    //
                 }
-                .scrollContentBackground(.hidden) // ✅ 이게 핵심
-                .background(Color.customColor) // List 자체의 배경
+                .scrollContentBackground(.hidden)
+                .background(Color.mBackground) // List 자체의 배경
                 .listStyle(.insetGrouped)
-
+                
             }
             
         }

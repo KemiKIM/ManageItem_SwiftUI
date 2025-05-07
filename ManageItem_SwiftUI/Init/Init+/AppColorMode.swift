@@ -15,7 +15,7 @@ enum AppColorMode: String, CaseIterable, Identifiable {
     
     var description: String {
         switch self {
-        case .system: return "시스템 설정"
+        case .system: return "시스템 설정 사용"
         case .light: return "라이트 모드"
         case .dark: return "다크 모드"
         }

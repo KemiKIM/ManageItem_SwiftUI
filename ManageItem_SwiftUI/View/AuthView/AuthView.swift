@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthView: View {
+    @Binding var hasStarted: Bool
     
     // TextField
     @State var inputText: String = ""
@@ -24,15 +25,19 @@ struct AuthView: View {
     let superCode: String = "01012341234"
     
     
-    @Binding var hasStarted: Bool
-//    
+   
 
+    
+    
+    
+    
+    
+    
+    
     
     // MARK: [ Function ]
     func onAppear_AuthView() {
-        print("Hello")
-        
-        
+
         // 추후 활성화
 //        self.rdViewModel.fetchCheckData {
 //            MANGO.debug(self.rdViewModel.checkModel)
@@ -100,10 +105,8 @@ struct AuthView: View {
 //                viewRouter.navigate(to: .main)
                 
             } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                    alertMessage = "유효하지 않은 인증번호입니다."
-                    showAlert = true
-                }
+                alertMessage = "유효하지 않은 인증번호입니다."
+                showAlert = true
             }
             
             // (3)-2. init TextField

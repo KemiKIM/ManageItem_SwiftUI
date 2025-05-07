@@ -1,32 +1,19 @@
 //
-//  ImageZoneView.swift
+//  ZoneDetailView+Body.swift
 //  ManageItem_SwiftUI
 //
-//  Created by 김성호 on 5/3/25.
+//  Created by 김성호 on 5/7/25.
 //
 
 import SwiftUI
 
-struct ImageZoneView: View  {
-    @EnvironmentObject var viewRouter: ViewRouter
-    
-    let zone: String
-    
-    @State private var scale: CGFloat = 1.0
-    @State private var lastScale: CGFloat = 1.0
-    @State private var offset: CGSize = .zero
-    @State private var lastOffset: CGSize = .zero
-    
-    
-    @EnvironmentObject var tabBarState: MainTabBarState
-    
-    
+extension ZoneDetailView {
     var body: some View {
             GeometryReader { geometry in
                 let screenWidth = geometry.size.width
                 let screenHeight = geometry.size.height
 
-                Image("test")
+                Image(returnImage(zone: zone))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenWidth)
@@ -73,7 +60,7 @@ struct ImageZoneView: View  {
                     
                 }) {
                     Image(systemSymbol: .chevronBackward)
-                        .foregroundColor(.defaultColor)
+                        .foregroundColor(.mSignature)
                 })
             .navigationTitle("\(zone) 구역")
             .onAppear() {
@@ -83,5 +70,4 @@ struct ImageZoneView: View  {
                 tabBarState.isHidden = false
             }
         }
-    
 }

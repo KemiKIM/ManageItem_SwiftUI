@@ -1,15 +1,14 @@
 //
-//  AuthView+UI.swift
+//  HomeStartView+UI.swift
 //  ManageItem_SwiftUI
 //
-//  Created by 김성호 on 5/2/25.
+//  Created by 김성호 on 5/7/25.
 //
 
 import SwiftUI
 import SFSafeSymbols
 
-extension AuthView {
-    // MARK: 1. Background View
+extension HomeStartView {
 //    var backgroundView: some View {
 //        Color.cardBackground
 //            .ignoresSafeArea() // SafeArea 위아래
@@ -18,10 +17,8 @@ extension AuthView {
 //            }
 //    }
     
-    // MARK: 2. Input TextField
 //    var inputTextField: some View {
-//        TextField("인증번호를 입력하세요", text: $inputText)
-//            .keyboardType(.numberPad)
+//        TextField("검색어를 입력하세요", text: $inputText)
 //            .padding(.leading, 10)
 //            .frame(width: UIScreen.screenWidth * 0.8, height: 50)
 //            .background(Color.black.opacity(0.1))
@@ -38,27 +35,12 @@ extension AuthView {
 //
 //                }
 //            }
-//            .onChange(of: inputText) { _, value in
-//                self.checkNumberCondition(value: value)
+//            .submitLabel(.done)       // ✅ 엔터 키(완료)로 보이게
+//            .onSubmit {
+//                UIApplication.shared.downKeyboard()
+//                print("입력된 텍스트: \(inputText)")
+//                viewRouter.navigateMain(to: .home(searchText: inputText))
 //            }
-//           
 //    }
-    
-    // MARK: 3. Experience Btn
-    var experienceBtn: some View {
-        
-            Button(action: {
-                hasStarted = true
-            }) {
-                Text("체험해보기")
-                    .underline()
-                    .foregroundStyle(Color.mSignature)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .frame(width: UIScreen.screenWidth * 0.5,
-                   height: UIScreen.screenHeight * 0.05
-            )
-    }
-
     
 }

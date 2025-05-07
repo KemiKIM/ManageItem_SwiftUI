@@ -12,9 +12,6 @@ struct ManageItem_SwiftUIApp: App {
     // AppDelegate
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-//    @StateObject var rdViewModel = RDViewModel()
-//    @StateObject var viewRouter = ViewRouter()
-    
     @State private var hasStarted = false
     
     @AppStorage("appColorMode") private var appColorMode: AppColorMode = .system

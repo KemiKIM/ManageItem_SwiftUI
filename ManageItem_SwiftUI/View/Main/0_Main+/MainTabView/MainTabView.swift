@@ -42,7 +42,7 @@ struct MainTabView: View {
                                 case .start:
                                     HomeStartView()
                                 case .home(let searchText):
-                                    HomeView(searchText: searchText ?? "")
+                                    HomeListView(searchText: searchText ?? "")
                                 case .add(let title, let receiveLabels):
                                     AddView(title: title, receiveLabels: receiveLabels)
                                 }
@@ -56,11 +56,11 @@ struct MainTabView: View {
                     
                     // 배치도
                     NavigationStack(path: $viewRouter.zonePath) {
-                        ConfirmZoneView()
+                        ZoneListView()
                             .navigationDestination(for: ZoneScreen.self) { screen in
                                 switch screen {
-                                case .imagezone(let zone):
-                                    ImageZoneView(zone: zone)
+                                case .detail(let zone):
+                                    ZoneDetailView(zone: zone)
                                 }
                             }
                     }

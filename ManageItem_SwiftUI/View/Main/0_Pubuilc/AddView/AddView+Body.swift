@@ -43,7 +43,7 @@ extension AddView {
                         UIApplication.shared.downKeyboard()
                     }) {
                         Image(systemSymbol: .keyboardChevronCompactDown)
-                            .foregroundColor(Color.defaultColor)
+                            .foregroundColor(Color.mSignature)
                     }
                 }
             }
@@ -70,7 +70,7 @@ extension AddView {
                 }
             )
         }
-        .background(Color.cardBackground
+        .background(Color.adaptiveBackground
             .ignoresSafeArea()
         )
         .navigationTitle(title)  // 타이틀 설정
@@ -86,7 +86,7 @@ extension AddView {
                     }
                 }) {
                     Image(systemSymbol: .chevronBackward)
-                        .foregroundColor(Color.defaultColor)
+                        .foregroundColor(Color.mSignature)
                 }
             }
         }

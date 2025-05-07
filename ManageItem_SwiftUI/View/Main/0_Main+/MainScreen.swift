@@ -12,7 +12,7 @@ enum MainScreen: Hashable {
 }
 
 enum ZoneScreen: Hashable {
-    case imagezone(zone: String)
+    case detail(zone: String)
 }
 
 enum SettingScreen: Hashable {

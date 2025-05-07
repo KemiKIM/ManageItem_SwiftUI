@@ -46,7 +46,7 @@ extension MainTabView {
                     }
                 }
             }
-            .foregroundStyle(selected == .a ? Color.defaultColor : Color.primary)
+            .foregroundStyle(selected == .a ? Color.mSignature : Color.primary)
             
             
             
@@ -88,7 +88,7 @@ extension MainTabView {
                     }
                 }
             }
-            .foregroundStyle(selected == .b ? Color.defaultColor : Color.primary)
+            .foregroundStyle(selected == .b ? Color.mSignature : Color.primary)
             
             
             
@@ -130,7 +130,7 @@ extension MainTabView {
                     }
                 }
             }
-            .foregroundStyle(selected == .c ? Color.defaultColor : Color.primary)
+            .foregroundStyle(selected == .c ? Color.mSignature : Color.primary)
             
             Spacer()
         }
@@ -139,8 +139,8 @@ extension MainTabView {
         .frame(height: 72)
         .background {
             RoundedRectangle(cornerRadius: 24)
-                .fill(Color.cardBackground)
-                      .shadow(color: Color.cardShadow, radius: 8, y: 2)
+                .fill(Color.adaptiveBackground)
+                      .shadow(color: Color.tabbarShadow, radius: 8, y: 2)
         }
         .padding(.horizontal)
         

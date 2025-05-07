@@ -14,46 +14,7 @@ class ViewRouter: ObservableObject {
     @Published var settingPath = NavigationPath()
 
     
-//    @Published var pathTabA = NavigationPath()
-//    @Published var pathTabB = NavigationPath()
-//    @Published var pathTabC = NavigationPath()
-//  
-//    
-//    func navigateA(to screen: MainScreen) {
-//        pathTabA.append(screen)
-//    }
-//    
-//    
-//    func navigateB(to screen: ZoneScreen) {
-//        pathTabB.append(screen)
-//    }
-//    
-//    
-//    func navigateC(to screen: SettingScreen) {
-//        pathTabC.append(screen)
-//    }
-//    
-//    func popA() {
-//        if !pathTabA.isEmpty {
-//            pathTabA.removeLast()
-//        }
-//    }
-//    
-//    func popB() {
-//        if !pathTabB.isEmpty {
-//            pathTabB.removeLast()
-//        }
-//    }
-//    
-//    func popC() {
-//        if !pathTabC.isEmpty {
-//            pathTabC.removeLast()
-//        }
-//    }
-    
-    
-    
-    // Natigate
+    // Push
     func navigateMain(to screen: MainScreen) {
         mainPath.append(screen)
     }
@@ -65,6 +26,7 @@ class ViewRouter: ObservableObject {
     func navigateSetting(to screen: SettingScreen) {
         settingPath.append(screen)
     }
+    
     
     // Pop
     func popMain() {

@@ -17,6 +17,9 @@ struct ManageItem_SwiftUIApp: App {
     @AppStorage("appColorMode") private var appColorMode: AppColorMode = .system
 
     
+    let persistenceController = PersistenceController.shared
+    
+    
     init() {
         configureSwiftyBeaver()
     }
@@ -24,11 +27,12 @@ struct ManageItem_SwiftUIApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(hasStarted: $hasStarted)
-                .onAppear {
-                    applyAppColorMode(appColorMode)
-                }
-            
+//            RootView(hasStarted: $hasStarted)
+//                .onAppear {
+//                    applyAppColorMode(appColorMode)
+//                }
+            CoreDataTestView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

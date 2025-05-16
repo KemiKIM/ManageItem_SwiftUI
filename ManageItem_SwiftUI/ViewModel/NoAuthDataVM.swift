@@ -1,5 +1,5 @@
 //
-//  NoAuthViewModel.swift
+//  NoAuthDataVM.swift
 //  ManageItem_SwiftUI
 //
 //  Created by 김성호 on 5/16/25.
@@ -9,11 +9,13 @@ import Foundation
 import CoreData
 import Combine
 
-class NoAuthModelViewModel: ObservableObject {
-    @Published var models: [NoAuthModel] = []
-
+class NoAuthDataVM: ObservableObject {
     private let context: NSManagedObjectContext
 
+    // Data
+    @Published var models: [NoAuthData] = []
+
+   
     init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.context = context
         fetchModels()
@@ -23,7 +25,7 @@ class NoAuthModelViewModel: ObservableObject {
     
     // fetch
     func fetchModels() {
-        let request: NSFetchRequest<NoAuthModel> = NoAuthModel.fetchRequest()
+        let request: NSFetchRequest<NoAuthData> = NoAuthData.fetchRequest()
 
         do {
             models = try context.fetch(request)
@@ -34,7 +36,7 @@ class NoAuthModelViewModel: ObservableObject {
 
     // Add
     func add(name: String, location: String?, partName: String?, serialNumber: String?) {
-        let model = NoAuthModel(context: context)
+        let model = NoAuthData(context: context)
         model.name = name
         model.location = location
         model.partName = partName
@@ -45,7 +47,7 @@ class NoAuthModelViewModel: ObservableObject {
     }
     
     // Update
-    func update(model: NoAuthModel, newName: String, newLocation: String?, newPartName: String?, newSerialNumber: String?) {
+    func update(model: NoAuthData, newName: String, newLocation: String?, newPartName: String?, newSerialNumber: String?) {
         model.name = newName
         model.location = newLocation
         model.partName = newPartName

@@ -13,7 +13,8 @@ extension ZoneDetailView {
                 let screenWidth = geometry.size.width
                 let screenHeight = geometry.size.height
 
-                Image(returnImage(zone: zone))
+                
+                self.returnImage(zone: zone)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: screenWidth)
@@ -53,6 +54,8 @@ extension ZoneDetailView {
             .background(Color.black)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.adaptiveBackground, for: .navigationBar) // Navi 배경 색상
+            .toolbarBackground(.visible, for: .navigationBar)   // Navi 배경 표시
             .navigationBarItems(
                 leading: Button(action: {
                    

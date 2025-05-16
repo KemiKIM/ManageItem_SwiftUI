@@ -9,7 +9,6 @@ import SwiftUI
 
 extension ZoneListView {
     var body: some View {
-
         ZStack {
             Color(Color.mBackground).ignoresSafeArea()
             
@@ -18,7 +17,16 @@ extension ZoneListView {
                 
                 LeftSideTitleText(title: "배치도")
                 
-                self.zoneList
+                // - Branch
+                if UserDefaults.standard.bool(forKey: "Verified") {
+                    
+                    // [ Auth ]
+                    self.authList
+                } else {
+                    
+                    // [ No Auth ]
+                    self.noAuthList
+                }
             }
             
         }

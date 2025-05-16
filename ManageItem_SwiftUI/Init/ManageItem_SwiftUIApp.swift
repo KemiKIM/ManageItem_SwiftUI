@@ -16,7 +16,6 @@ struct ManageItem_SwiftUIApp: App {
     
     @AppStorage("appColorMode") private var appColorMode: AppColorMode = .system
 
-    
     let persistenceController = PersistenceController.shared
     
     
@@ -27,12 +26,12 @@ struct ManageItem_SwiftUIApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            RootView(hasStarted: $hasStarted)
-//                .onAppear {
-//                    applyAppColorMode(appColorMode)
-//                }
-            CoreDataTestView()
+            RootView(hasStarted: $hasStarted)
+                .onAppear {
+                    applyAppColorMode(appColorMode)
+                }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+              
         }
     }
 }

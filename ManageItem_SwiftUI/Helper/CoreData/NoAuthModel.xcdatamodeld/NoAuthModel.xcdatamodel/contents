@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24E263" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="NoAuthModel" representedClassName="NoAuthModel" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="23H527" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="NoAuthData" representedClassName="NoAuthData" syncable="YES" codeGenerationType="class">
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="partName" optional="YES" attributeType="String"/>
         <attribute name="serialNumber" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="NoAuthImage" representedClassName="NoAuthImage" syncable="YES" codeGenerationType="class">
+        <attribute name="noAuthImage" optional="YES" attributeType="String"/>
     </entity>
 </model>

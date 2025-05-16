@@ -18,18 +18,34 @@ struct ZoneDetailView: View  {
     @State var offset: CGSize = .zero
     @State var lastOffset: CGSize = .zero
     
+
     
-    // 이미지 수령 후 작업 필요
-    func returnImage(zone: String) -> String {
-        switch zone {
-        case "A": return "Zone_A_B"
-        case "B": return "Zone_A_B"
-        case "C": return "Zone_C"
-        case "D": return "Zone_D"
-        case "E": return "Zone_E"
-        case "F": return "Zone_F"
-        case "G": return "Zone_G"
-        default: return "Zone_CABINET"
+    // - Branch
+    func returnImage(zone: String) -> Image {
+        if UserDefaults.standard.bool(forKey: "Verified") {
+            
+            // [ Auth ] - assets saved Image
+            switch zone {
+            case "A", "B": return Image("Zone_A_B")
+            case "C": return Image("Zone_C")
+            case "D": return Image("Zone_D")
+            case "E": return Image("Zone_E")
+            case "F": return Image("Zone_F")
+            case "G": return Image("Zone_G")
+            default:
+                return Image("Zone_CABINET")
+            }
+        } else {
+            
+            // [ No Auth ] - Gallery
+            let url = URL(fileURLWithPath: zone)
+            if FileManager.default.fileExists(atPath: url.path),
+               let data = try? Data(contentsOf: url),
+               let uiImage = UIImage(data: data) {
+                return Image(uiImage: uiImage)
+            } else {
+                return Image(systemName: "photo")
+            }
         }
     }
 }

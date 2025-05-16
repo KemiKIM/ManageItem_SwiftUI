@@ -16,9 +16,6 @@ extension MainTabView {
             
             
             Button {
-//                selected = .a
-//                let generator = UIImpactFeedbackGenerator(style: .medium)
-//                generator.impactOccurred()
                 self.selectedAndVibrate(selected: .a)
                 
                 tapCount += 1
@@ -58,9 +55,6 @@ extension MainTabView {
             
             
             Button {
-//                selected = .b
-//                let generator = UIImpactFeedbackGenerator(style: .medium)
-//                generator.impactOccurred()
                 self.selectedAndVibrate(selected: .b)
 
                 
@@ -101,9 +95,6 @@ extension MainTabView {
             
             
             Button {
-//                selected = .c
-//                let generator = UIImpactFeedbackGenerator(style: .medium)
-//                generator.impactOccurred()
                 self.selectedAndVibrate(selected: .c)
                 
                 tapCount += 1

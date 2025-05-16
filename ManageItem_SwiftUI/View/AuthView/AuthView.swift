@@ -22,7 +22,7 @@ struct AuthView: View {
     @State var version: String = ""
     
     // Test Super AuthCode
-    let superCode: String = "01012341234"
+    let superCode: String = "99999999999"
     
     
    
@@ -101,8 +101,7 @@ struct AuthView: View {
             // (3)-1. Condition check
 //            if inputText == self.authCode {
             if inputText == self.superCode {
-                
-//                hasStarted = true
+                hasStarted = true
                 
                 // Success
                 UserDefaults.standard.set(true, forKey: "Verified")

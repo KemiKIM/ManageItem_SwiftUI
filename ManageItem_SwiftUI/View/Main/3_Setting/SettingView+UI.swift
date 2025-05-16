@@ -30,7 +30,7 @@ extension SettingView {
         return Toggle("인증화면 활성화", isOn: $hasStarted)
             .onChange(of: hasStarted) { _, newValue in
                 
-                if UserDefaults.standard.bool(forKey: "Verified") {
+//                if UserDefaults.standard.bool(forKey: "Verified") {
                     if hasStarted {
                         // ON
                         UserDefaults.standard.set(true, forKey: "hasStarted")
@@ -39,12 +39,11 @@ extension SettingView {
                         UserDefaults.standard.set(false, forKey: "hasStarted")
                     }
                     
-                } else {
-//                     not verified
-                    alertMessage = "현재는 이 기능을 이용할 수 없습니다"
-                    self.showAlert = true
-                    hasStarted = true
-                }
+//                } else {
+////                     not verified
+//                    alertMessage = "현재는 이 기능을 이용할 수 없습니다"
+//                    self.showAlert = true
+//                }
                 
             
            
@@ -104,7 +103,9 @@ extension SettingView {
     var addBtn: some View {
         return Button {
             // 이동
-            viewRouter.navigateSetting(to: .add(title: "추가하기", receiveLabels: []))
+            viewRouter.navigateSetting(to: .add(title: "추가하기",
+                                                receiveLabels: [],
+                                                noAuth: nil))
         } label: {
             HStack {
                 Text("추가하기")

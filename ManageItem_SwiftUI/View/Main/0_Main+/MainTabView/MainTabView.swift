@@ -43,8 +43,10 @@ struct MainTabView: View {
                                     HomeStartView()
                                 case .home(let searchText):
                                     HomeListView(searchText: searchText ?? "")
-                                case .add(let title, let receiveLabels):
-                                    AddView(title: title, receiveLabels: receiveLabels)
+                                case .add(let title, let receiveLabels, let noAuth):
+                                    AddView(title: title,
+                                            noAuth: noAuth,
+                                            receiveLabels: receiveLabels)
                                 }
                             }
                         
@@ -72,8 +74,10 @@ struct MainTabView: View {
                         SettingView()
                             .navigationDestination(for: SettingScreen.self) { screen in
                                 switch screen {
-                                case .add(let title, let receiveLabels):
-                                    AddView(title: title, receiveLabels: receiveLabels)
+                                case .add(let title, let receiveLabels, let noAuth):
+                                    AddView(title: title,
+                                            noAuth: noAuth,
+                                            receiveLabels: receiveLabels)
                                 }
                             }
                     }

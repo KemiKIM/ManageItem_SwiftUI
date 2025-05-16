@@ -14,7 +14,7 @@ extension AddView {
             LazyVStack() {
                 Spacer().frame(height: UIScreen.main.bounds.height * 0.2)
                 
-                
+               
                 HStack() {
                     self.setLeftLabels
                     self.setRightTextFields
@@ -53,16 +53,34 @@ extension AddView {
                 actions: {
                     Button("취소") { }
                     Button("확인") {
-                        let _ = print("이곳입니다!", alertMessage)
-                        // 1. 값을 RDB에 작성
-                        
-                        // 2. 뒤로 가기.
-                        
+        
                         if title == "추가하기" {
-                            viewRouter.popSetting()
+                            self.add {
+                                viewRouter.popSetting()
+                            } failure: {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    self.alertMessage = ("체험하기에서는 최대 5개까지 추가할 수 있습니다.\n관리자에게 문의해주세요")
+                                    self.errorAlert = true
+                                }
+                            }
+
                         } else {
-                            viewRouter.popMain()
+                            self.edit {
+                                viewRouter.popMain()
+                            }
                         }
+                    }
+                },
+                message: {
+                    Text(alertMessage)
+                }
+            )
+            .alert(
+                "알림",
+                isPresented: $errorAlert,
+                actions: {
+                    Button("확인") {
+                        viewRouter.popSetting()
                     }
                 },
                 message: {

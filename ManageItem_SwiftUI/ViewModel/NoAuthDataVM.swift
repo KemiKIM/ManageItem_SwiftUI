@@ -35,35 +35,42 @@ class NoAuthDataVM: ObservableObject {
     }
 
     // Add
-    func add(name: String, location: String?, partName: String?, serialNumber: String?) {
+    func add(name: String, partName: String, serialNumber: String, location: String) {
         let model = NoAuthData(context: context)
+        
+        model.id = UUID()
         model.name = name
-        model.location = location
         model.partName = partName
         model.serialNumber = serialNumber
+        model.location = location
 
         saveContext()
         fetchModels()
     }
     
     // Update
-    func update(model: NoAuthData, newName: String, newLocation: String?, newPartName: String?, newSerialNumber: String?) {
-        model.name = newName
-        model.location = newLocation
-        model.partName = newPartName
-        model.serialNumber = newSerialNumber
-
+    func update(someId: UUID, newName: String, newLocation: String?, newPartName: String?, newSerialNumber: String?) {
+        
+        if let model = models.first(where: { $0.id == someId }) {
+            model.name = newName
+            model.location = newLocation
+            model.partName = newPartName
+            model.serialNumber = newSerialNumber
+        }
         saveContext()
         fetchModels()
     }
 
+    
     // Delete
-    func delete(at offsets: IndexSet) {
-        offsets.map { models[$0] }.forEach(context.delete)
+    func delete(model: NoAuthData) {
+        context.delete(model)
+        
         saveContext()
         fetchModels()
     }
 
+    
     // Total Count
     var totalCount: Int {
         models.count

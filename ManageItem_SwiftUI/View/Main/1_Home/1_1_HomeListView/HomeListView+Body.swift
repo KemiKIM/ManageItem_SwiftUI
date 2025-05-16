@@ -35,7 +35,16 @@ extension HomeListView {
             }
             .onAppear() {
                 
-//                self.rdViewModel.fetchAllItems()
+                // - Branch
+                if UserDefaults.standard.bool(forKey: "Verified") {
+                    
+                    // [ Auth ]
+//                    self.rdViewModel.fetchAllItems()
+                } else {
+                    
+                    // [ No Auth ]
+                    self.noAuthData.fetchModels()
+                }
             }
             .withGlobalLoadingView($rdViewModel.isLoading)  // 로딩 화면 추가
             .navigationBarBackButtonHidden(true)

@@ -13,8 +13,6 @@ extension AddView {
     
     
     
-    
-    
     var setLeftLabels: some View {
         VStack() {
             ForEach(labels, id: \.self) { text in

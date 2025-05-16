@@ -10,13 +10,11 @@ import SwiftUI
 extension HomeStartView {
     var body: some View {
         ZStack {
-//            self.backgroundView
             AdaptiveBackgroundView()
             
             VStack {
                 
                 Spacer()
-//                self.inputTextField
                 InputTextField(inputText: $inputText, placeholder: "검색어를 입력하세요")
                     .submitLabel(.done)
                     .onSubmit {
